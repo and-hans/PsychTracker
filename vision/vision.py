@@ -42,7 +42,7 @@ model = keras.models.Sequential(
 model.load_weights(os.path.join(os.getcwd(), 'model.h5'))
 
 # one hot encode emotions
-emotion_dict: dict[int, str] = {
+emotions: dict[int, str] = {
     0: "Angry", 1: "Disgusted", 2: "Fearful", 
     3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"
 }
@@ -69,7 +69,7 @@ while True:
         idx = int(np.argmax(prediction))
         # draw the predicted emotion to the frame
         cv2.putText(
-            frame, emotion_dict[idx], (x+20, y-60), 
+            frame, emotions[idx], (x+20, y-60), 
             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
     # display the frame onto a window
