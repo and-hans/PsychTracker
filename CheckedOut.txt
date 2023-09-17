@@ -1,0 +1,9 @@
+Stuff we've checked out that we need to give back so Sophie keeps her liscence
+1. Arduino Uno
+2. USB A to USB B cable
+3. Raspberry Pi 3 
+4. Raspberry Pi 3 power cable
+5. HDMI cable
+6. Arduino Leonardo 
+7. USB A to Micro usb cable
+8. Logitech camera
