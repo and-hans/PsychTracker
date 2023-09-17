@@ -8,7 +8,7 @@ import os
 from keras import layers
 from keras.preprocessing.image import ImageDataGenerator
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # get rid of tensorflow logs 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # get rid of tensorflow info and warning logs 
 
 # training and validation testing data directory paths
 train_pth: str = os.path.join(os.getcwd(), 'data/train')
