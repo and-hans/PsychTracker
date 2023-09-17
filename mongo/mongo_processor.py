@@ -114,7 +114,7 @@ class MongoProcessor:
 
         ---
         ### Parameters
-        - user (str): Name of the user you want to delete
+        - user (str): Name of the user you want to delete.
         
         ---
         ### Return
