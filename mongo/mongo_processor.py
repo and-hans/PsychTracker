@@ -18,9 +18,12 @@ class MongoProcessor:
 
         ---
         ### Parameters
-        - button_mapping (dict[str, str]) : mapping of buttons to specific states
-        - mongo_host (str) : IP address of the MongoDB server
-        - mongo_port (int) : port number that the MongoDB server uses
+        - button_mapping (dict[str, str]): mapping of buttons to specific states.
+          Defaults to None.
+        - mongo_host (str): IP address of the MongoDB server.
+          Defaults to "localhost"
+        - mongo_port (int): Port number that the MongoDB server uses.
+          Defaults to 27017.
         
         ---
         ### Return
@@ -43,7 +46,7 @@ class MongoProcessor:
         self.col_list = self.db.list_collection_names()
         self.user_index = self.db['user_indices']  # configure user_indices collection
     
-    def add_button_press_data(self, button: str, user: str) -> None:
+    def add_button_press_data(self, button: str, user: str, emotion: str = None, temp: int = None) -> None:
         """
         ### Function Summary
         Adds button press data (index, button pressed, state, and date) 
@@ -51,8 +54,10 @@ class MongoProcessor:
 
         ---
         ### Parameters
-        - button (str) : button pressed 
-        - user (str) : name of the user you want to add the data to
+        - button (str): Button pressed.
+        - user (str): Name of the user you want to add the data to.
+        - emotion (str, optional): detected emotion if available. Defaults to None.
+        - temp (int, optional): detected body temperature if available. Defaults to None.
         
         ---
         ### Return
@@ -70,6 +75,12 @@ class MongoProcessor:
             "state": self.button_mapping[button],
             "datetime": datetime.now().isoformat()
         }
+        # if temperature data is available, add it to the data package
+        if temp is not None: 
+            data_package["temp"] = temp
+        # if emotion data is available, add it to the data package
+        if emotion is not None:
+            data_package["emotion"] = emotion
         user_col.insert_one(data_package)  # insert data/document into collection
         # increment the index for new the new inserted document
         self.user_index.update_one(
@@ -84,7 +95,7 @@ class MongoProcessor:
 
         ---
         ### Parameters
-        - user (str) : name of the user you want to add
+        - user (str): Name of the user you want to add.
         
         ---
         ### Return
@@ -103,7 +114,7 @@ class MongoProcessor:
 
         ---
         ### Parameters
-        - user (str) : name of the user you want to delete
+        - user (str): Name of the user you want to delete
         
         ---
         ### Return
@@ -123,7 +134,7 @@ class MongoProcessor:
 
         ---
         ### Parameters
-        - file_pth (str) : path to the json file you want to parse
+        - file_pth (str): Path to the json file you want to parse
 
         ---
         ### Return
